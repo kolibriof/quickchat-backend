@@ -2,6 +2,7 @@ package com.chatapp.quickchat.controllers;
 
 import com.chatapp.quickchat.entities.User;
 import com.chatapp.quickchat.repositories.UsersRepository;
+import com.chatapp.quickchat.responses.UserResponse;
 import com.chatapp.quickchat.services.UsersService;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.POST)
-    public User addOneUser(@RequestBody User user) {
-        return this.usersRepository.save(user);
+    public UserResponse addOneUser(@RequestBody User user) {
+        return this.usersService.createNewUser(user);
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET, params = "id")
@@ -35,7 +36,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Integer loginUser(@RequestBody User user) {
+    public UserResponse loginUser(@RequestBody User user) {
         return this.usersService.authenticateUser(user.getLogin(), user.getPassword());
     }
 }

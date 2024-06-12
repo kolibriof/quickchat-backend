@@ -9,4 +9,7 @@ public interface UsersRepository extends CrudRepository<User, Integer> {
 
     @Query("SELECT id FROM User WHERE login = :login AND password = :password")
     Integer findByLoginAndPassword(@Param("login") String login, @Param("password") String password);
+
+    @Query("SELECT login FROM User WHERE login = :login")
+    String userExists(@Param("login") String login);
 }
