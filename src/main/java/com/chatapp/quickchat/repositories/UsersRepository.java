@@ -1,15 +1,20 @@
 package com.chatapp.quickchat.repositories;
 
 import com.chatapp.quickchat.entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface UsersRepository extends CrudRepository<User, Integer> {
+import java.util.Optional;
 
-    @Query("SELECT id FROM User WHERE login = :login AND password = :password")
+public interface UsersRepository extends JpaRepository<User, Integer> {
+
+    @Query("SELECT u.id FROM User u WHERE u.login = :login AND u.password = :password")
     Integer findByLoginAndPassword(@Param("login") String login, @Param("password") String password);
 
-    @Query("SELECT login FROM User WHERE login = :login")
+    @Query("SELECT u.login FROM User u WHERE u.login = :login")
     String userExists(@Param("login") String login);
+
+    @Query("SELECT u FROM User u WHERE u.login = :login")
+    User findByLogin(@Param("login") String login);
 }
