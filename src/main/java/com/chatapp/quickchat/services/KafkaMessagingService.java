@@ -62,6 +62,7 @@ public class KafkaMessagingService {
 
     }
 
+
     public List<Messages> getChatHistory(ChatHistoryRequest request) {
         User sender = this.usersRepository.findByLogin(request.getSenderName());
         User receiver = this.usersRepository.findByLogin(request.getReceiverName());

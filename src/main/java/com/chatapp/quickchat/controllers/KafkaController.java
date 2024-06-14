@@ -14,9 +14,6 @@ import java.util.List;
 public class KafkaController {
 
     @Autowired
-    private MessageProducer messageProducer;
-
-    @Autowired
     private KafkaMessagingService kafkaMessagingService;
 
     @RequestMapping(value = "/send", method = RequestMethod.POST)
