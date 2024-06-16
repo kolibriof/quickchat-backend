@@ -28,7 +28,7 @@ public class Messages {
 
     public Messages() {}
 
-    public Messages(User sender_id, User receiver_id, User receiver, String message, Timestamp timestamp) {
+    public Messages(User sender_id, User receiver_id, String message, Timestamp timestamp) {
         this.sender = sender_id;
         this.receiver = receiver_id;
         this.message = message;

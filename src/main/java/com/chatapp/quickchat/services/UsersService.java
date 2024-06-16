@@ -1,10 +1,14 @@
 package com.chatapp.quickchat.services;
 
+import com.chatapp.quickchat.dto.UserDTO;
 import com.chatapp.quickchat.entities.User;
 import com.chatapp.quickchat.repositories.UsersRepository;
 import com.chatapp.quickchat.responses.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UsersService {
@@ -18,6 +22,15 @@ public class UsersService {
             return new UserResponse(200, login);
         }
         return new UserResponse(404, "Incorrect credentials.");
+    }
+
+    public Iterable<UserDTO> findAllUsers() {
+        List<UserDTO> userDTOS = new ArrayList<>();
+        List<User> retrievedUsers = this.usersRepository.findAll();
+        for (User userItem : retrievedUsers) {
+            userDTOS.add(new UserDTO(userItem.getLogin(), userItem.getActive()));
+        }
+        return userDTOS;
     }
 
     public UserResponse createNewUser(User user) {

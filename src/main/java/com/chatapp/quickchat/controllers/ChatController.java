@@ -1,9 +1,9 @@
 package com.chatapp.quickchat.controllers;
 
 
-import com.chatapp.quickchat.entities.Messages;
+import com.chatapp.quickchat.dto.MessageDTO;
 import com.chatapp.quickchat.responses.MessageResponse;
-import com.chatapp.quickchat.responses.WebSocketService;
+import com.chatapp.quickchat.services.WebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -18,9 +18,8 @@ public class ChatController {
 
     @MessageMapping("/message")
     @SendTo("/topic/quickchat-group")
-    public Messages broadcastGroupMessage(@Payload MessageResponse messageResponse) {
-        return this.webSocketService.setWebSocketReturn(messageResponse);
+    public MessageDTO broadcastGroupMessage(@Payload MessageResponse messageResponse) {
+        return this.webSocketService.setWebSocketReturnMessage(messageResponse);
     }
-
 
 }

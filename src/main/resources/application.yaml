@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: quickchat
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users
+    username: dsavc3
+    password: 12345
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: quickchat-id
+  web:
+    socket:
+      enabled: true
+
+logging:
+  level:
+    org:
+      hibernate: debug
+    web: DEBUG

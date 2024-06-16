@@ -1,6 +1,8 @@
 package com.chatapp.quickchat.services;
 
 
+import com.chatapp.quickchat.dto.MessageDTO;
+import com.chatapp.quickchat.dto.UserDTO;
 import com.chatapp.quickchat.entities.Messages;
 import com.chatapp.quickchat.entities.User;
 import com.chatapp.quickchat.kafka.producer.MessageProducer;
@@ -16,10 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 @Service
 public class KafkaMessagingService {
 
@@ -62,12 +63,10 @@ public class KafkaMessagingService {
 
     }
 
-
-    public List<Messages> getChatHistory(ChatHistoryRequest request) {
+    public List<MessageDTO> getChatHistory(ChatHistoryRequest request) {
         User sender = this.usersRepository.findByLogin(request.getSenderName());
         User receiver = this.usersRepository.findByLogin(request.getReceiverName());
-
-        return this.messageRepository.findBySenderOrReceiver(sender, receiver);
+        return this.convertMessageResponse(sender, receiver);
     }
 
     public void sendMessageToKafka(MessageResponse messageResponse) {
@@ -83,7 +82,22 @@ public class KafkaMessagingService {
         }
     }
 
-    public JsonNode messageDeserialization(String message) {
+    private List<MessageDTO> convertMessageResponse(User sender, User receiver) {
+        List<MessageDTO> messageDTOList = new ArrayList<>();
+        List<Messages> messagesList = this.messageRepository.findBySenderOrReceiver(sender, receiver);
+        for(Messages messagesItem : messagesList ) {
+            messageDTOList.add(
+                    new MessageDTO(messagesItem.getMessage(),
+                            messagesItem.getTimestamp(),
+                            messagesItem.getId(),
+                            new UserDTO(messagesItem.getSender_id().getLogin(), messagesItem.getSender_id().getActive()),
+                            new UserDTO(messagesItem.getReceiver_id().getLogin(), messagesItem.getReceiver_id().getActive())
+                    ));
+        }
+        return messageDTOList;
+    }
+
+    private JsonNode messageDeserialization(String message) {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode JsonMessage;
         try {
@@ -94,5 +108,7 @@ public class KafkaMessagingService {
         }
         return JsonMessage;
     }
+
+
 }
 

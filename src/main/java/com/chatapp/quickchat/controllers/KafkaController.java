@@ -1,7 +1,6 @@
 package com.chatapp.quickchat.controllers;
 
-import com.chatapp.quickchat.entities.Messages;
-import com.chatapp.quickchat.kafka.producer.MessageProducer;
+import com.chatapp.quickchat.dto.MessageDTO;
 import com.chatapp.quickchat.requests.ChatHistoryRequest;
 import com.chatapp.quickchat.responses.MessageResponse;
 import com.chatapp.quickchat.services.KafkaMessagingService;
@@ -22,7 +21,7 @@ public class KafkaController {
     }
 
     @RequestMapping(value = "/history", method = RequestMethod.POST)
-    public List<Messages> getChatHistory(@RequestBody() ChatHistoryRequest request) {
+    public List<MessageDTO> getChatHistory(@RequestBody() ChatHistoryRequest request) {
         return this.kafkaMessagingService.getChatHistory(request);
     }
 }
