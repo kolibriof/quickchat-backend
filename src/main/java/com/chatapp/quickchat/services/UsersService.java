@@ -4,10 +4,10 @@ import com.chatapp.quickchat.dto.UserDTO;
 import com.chatapp.quickchat.entities.User;
 import com.chatapp.quickchat.repositories.UsersRepository;
 import com.chatapp.quickchat.responses.UserResponse;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,6 +29,7 @@ public class UsersService {
         return retrievedUsers.stream().map((user)-> new UserDTO(user.getLogin(), user.getActive())).toList();
     }
 
+    @Transactional
     public UserResponse createNewUser(User user) {
         String retrievedLogin = this.usersRepository.userExists(user.getLogin());
         if(retrievedLogin != null && !retrievedLogin.isEmpty()) {

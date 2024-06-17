@@ -4,6 +4,7 @@ import com.chatapp.quickchat.dto.MessageDTO;
 import com.chatapp.quickchat.requests.ChatHistoryRequest;
 import com.chatapp.quickchat.responses.MessageResponse;
 import com.chatapp.quickchat.services.KafkaMessagingService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +17,12 @@ public class KafkaController {
     private KafkaMessagingService kafkaMessagingService;
 
     @RequestMapping(value = "/send", method = RequestMethod.POST)
-    public void sendMessage(@RequestBody() MessageResponse message) {
+    public void sendMessage(@Valid @RequestBody MessageResponse message) {
         this.kafkaMessagingService.sendMessageToKafka(message);
     }
 
     @RequestMapping(value = "/history", method = RequestMethod.POST)
-    public List<MessageDTO> getChatHistory(@RequestBody() ChatHistoryRequest request) {
+    public List<MessageDTO> getChatHistory(@RequestBody ChatHistoryRequest request) {
         return this.kafkaMessagingService.getChatHistory(request);
     }
 }
