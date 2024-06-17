@@ -25,12 +25,8 @@ public class UsersService {
     }
 
     public Iterable<UserDTO> findAllUsers() {
-        List<UserDTO> userDTOS = new ArrayList<>();
         List<User> retrievedUsers = this.usersRepository.findAll();
-        for (User userItem : retrievedUsers) {
-            userDTOS.add(new UserDTO(userItem.getLogin(), userItem.getActive()));
-        }
-        return userDTOS;
+        return retrievedUsers.stream().map((user)-> new UserDTO(user.getLogin(), user.getActive())).toList();
     }
 
     public UserResponse createNewUser(User user) {

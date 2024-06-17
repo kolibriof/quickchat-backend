@@ -13,11 +13,11 @@ public class User {
     @SequenceGenerator(name = "usersdata_seq", sequenceName = "usersdata_seq", allocationSize = 1)
     private Integer Id;
 
-    @OneToMany(mappedBy = "sender")
-    private List<Messages> sentMessages;
-
-    @OneToMany(mappedBy = "receiver")
-    private List<Messages> receivedMessages;
+//    @OneToMany(mappedBy = "sender")
+//    private List<Messages> sentMessages;
+//
+//    @OneToMany(mappedBy = "receiver")
+//    private List<Messages> receivedMessages;
 
     private String login;
     private String password;

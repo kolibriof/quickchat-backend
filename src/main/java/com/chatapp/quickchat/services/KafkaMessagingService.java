@@ -18,9 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 @Service
 public class KafkaMessagingService {
 
@@ -83,18 +83,14 @@ public class KafkaMessagingService {
     }
 
     private List<MessageDTO> convertMessageResponse(User sender, User receiver) {
-        List<MessageDTO> messageDTOList = new ArrayList<>();
         List<Messages> messagesList = this.messageRepository.findBySenderOrReceiver(sender, receiver);
-        for(Messages messagesItem : messagesList ) {
-            messageDTOList.add(
-                    new MessageDTO(messagesItem.getMessage(),
-                            messagesItem.getTimestamp(),
-                            messagesItem.getId(),
-                            new UserDTO(messagesItem.getSender_id().getLogin(), messagesItem.getSender_id().getActive()),
-                            new UserDTO(messagesItem.getReceiver_id().getLogin(), messagesItem.getReceiver_id().getActive())
-                    ));
-        }
-        return messageDTOList;
+        return messagesList.stream().map((message)-> new MessageDTO(
+                message.getMessage(),
+                message.getTimestamp(),
+                message.getId(),
+                new UserDTO(message.getSender_id().getLogin(), message.getSender_id().getActive()),
+                new UserDTO(message.getReceiver_id().getLogin(), message.getReceiver_id().getActive())))
+                .toList();
     }
 
     private JsonNode messageDeserialization(String message) {
