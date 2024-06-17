@@ -1,4 +1,4 @@
-package com.chatapp.quickchat.kafka.consumer;
+package com.chatapp.quickchat.kafka;
 
 import com.chatapp.quickchat.services.KafkaMessagingService;
 import org.springframework.beans.factory.annotation.Autowired;

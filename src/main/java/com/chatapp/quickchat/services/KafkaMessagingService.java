@@ -5,7 +5,7 @@ import com.chatapp.quickchat.dto.MessageDTO;
 import com.chatapp.quickchat.dto.UserDTO;
 import com.chatapp.quickchat.entities.Messages;
 import com.chatapp.quickchat.entities.User;
-import com.chatapp.quickchat.kafka.producer.MessageProducer;
+import com.chatapp.quickchat.kafka.MessageProducer;
 import com.chatapp.quickchat.repositories.MessageRepository;
 import com.chatapp.quickchat.repositories.UsersRepository;
 import com.chatapp.quickchat.requests.ChatHistoryRequest;
