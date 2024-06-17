@@ -6,7 +6,6 @@ import com.chatapp.quickchat.entities.User;
 import com.chatapp.quickchat.repositories.UsersRepository;
 import com.chatapp.quickchat.responses.MessageResponse;
 import org.springframework.stereotype.Service;
-
 import java.sql.Timestamp;
 import java.util.Date;
 

@@ -6,7 +6,6 @@ import com.chatapp.quickchat.responses.MessageResponse;
 import com.chatapp.quickchat.services.KafkaMessagingService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

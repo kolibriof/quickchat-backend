@@ -7,7 +7,6 @@ import com.chatapp.quickchat.responses.UserResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
