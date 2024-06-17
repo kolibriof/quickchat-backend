@@ -24,6 +24,9 @@ public class User {
     @NotNull
     private Boolean active;
 
+    public User() {
+    }
+
     public User(String login, String password, Boolean isActive) {
         this.login = login;
         this.password = password;

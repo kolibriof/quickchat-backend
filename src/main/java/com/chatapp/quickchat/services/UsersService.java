@@ -6,6 +6,7 @@ import com.chatapp.quickchat.repositories.UsersRepository;
 import com.chatapp.quickchat.responses.UserResponse;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,14 +31,14 @@ public class UsersService {
     }
 
     @Transactional
-    public UserResponse createNewUser(User user) {
+    public ResponseEntity<UserResponse> createNewUser(User user) {
         String retrievedLogin = this.usersRepository.userExists(user.getLogin());
         if(retrievedLogin != null && !retrievedLogin.isEmpty()) {
             if(retrievedLogin.equals(user.getLogin())) {
-                return new UserResponse(404, "User already exists.");
+                return ResponseEntity.badRequest().body(new UserResponse(400, "This user already exists."));
             }
         }
         this.usersRepository.save(user);
-        return new UserResponse(200, user.getLogin());
+        return ResponseEntity.ok(new UserResponse(200, "User has been added."));
     }
 }
