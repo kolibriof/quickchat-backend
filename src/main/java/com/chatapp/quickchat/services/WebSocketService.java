@@ -5,7 +5,6 @@ import com.chatapp.quickchat.dto.UserDTO;
 import com.chatapp.quickchat.entities.User;
 import com.chatapp.quickchat.repositories.UsersRepository;
 import com.chatapp.quickchat.responses.MessageResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -14,8 +13,11 @@ import java.util.Date;
 @Service
 public class WebSocketService {
 
-    @Autowired
-    UsersRepository usersRepository;
+    private final UsersRepository usersRepository;
+
+    public WebSocketService(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
 
     public MessageDTO setWebSocketReturnMessage(MessageResponse messageResponse) {
         User sender = usersRepository.findByLogin(messageResponse.getSenderName());

@@ -1,19 +1,17 @@
 package com.chatapp.quickchat.kafka;
 
 import com.chatapp.quickchat.services.KafkaMessagingService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MessageConsumer {
 
-    @Autowired
-    SimpMessagingTemplate template;
+    private final KafkaMessagingService kafkaMessagingService;
 
-    @Autowired
-    KafkaMessagingService kafkaMessagingService;
+    public MessageConsumer(KafkaMessagingService kafkaMessagingService) {
+        this.kafkaMessagingService = kafkaMessagingService;
+    }
 
     @KafkaListener(topics = "quickchat-topic", groupId = "quickchat-id")
     public void listen(String message) {

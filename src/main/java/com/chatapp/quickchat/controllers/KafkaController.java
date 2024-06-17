@@ -5,7 +5,6 @@ import com.chatapp.quickchat.requests.ChatHistoryRequest;
 import com.chatapp.quickchat.responses.MessageResponse;
 import com.chatapp.quickchat.services.KafkaMessagingService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,8 +12,11 @@ import java.util.List;
 @RestController
 public class KafkaController {
 
-    @Autowired
-    private KafkaMessagingService kafkaMessagingService;
+    private final KafkaMessagingService kafkaMessagingService;
+
+    public KafkaController(KafkaMessagingService kafkaMessagingService) {
+        this.kafkaMessagingService = kafkaMessagingService;
+    }
 
     @RequestMapping(value = "/send", method = RequestMethod.POST)
     public void sendMessage(@Valid @RequestBody MessageResponse message) {

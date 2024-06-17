@@ -5,7 +5,6 @@ import com.chatapp.quickchat.entities.User;
 import com.chatapp.quickchat.repositories.UsersRepository;
 import com.chatapp.quickchat.responses.UserResponse;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +13,12 @@ import java.util.List;
 @Service
 public class UsersService {
 
-    @Autowired
-    private UsersRepository usersRepository;
+
+    private final UsersRepository usersRepository;
+
+    public UsersService(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
 
     public UserResponse authenticateUser(String login, String password) {
         Integer id = this.usersRepository.findByLoginAndPassword(login, password);
