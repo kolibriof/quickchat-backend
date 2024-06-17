@@ -1,8 +1,9 @@
 package com.chatapp.quickchat.entities;
 
 import jakarta.persistence.*;
-
-import java.util.List;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usersdata", schema = "usersdataschema")
@@ -13,17 +14,15 @@ public class User {
     @SequenceGenerator(name = "usersdata_seq", sequenceName = "usersdata_seq", allocationSize = 1)
     private Integer Id;
 
-//    @OneToMany(mappedBy = "sender")
-//    private List<Messages> sentMessages;
-//
-//    @OneToMany(mappedBy = "receiver")
-//    private List<Messages> receivedMessages;
-
+    @NotBlank
     private String login;
-    private String password;
-    private Boolean active;
 
-    private User(){}
+    @NotBlank
+    @Size(min = 4, message = "Password must be at least 4 characters long.")
+    private String password;
+
+    @NotNull
+    private Boolean active;
 
     public User(String login, String password, Boolean isActive) {
         this.login = login;

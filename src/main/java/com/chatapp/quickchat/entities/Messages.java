@@ -1,6 +1,7 @@
 package com.chatapp.quickchat.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.sql.Timestamp;
 
@@ -21,6 +22,7 @@ public class Messages {
     @JoinColumn(name = "receiver_id", nullable = false)
     private User receiver;
 
+    @NotBlank
     private String message;
 
     @Temporal(TemporalType.TIMESTAMP)
