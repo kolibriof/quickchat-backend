@@ -39,6 +39,7 @@ public class UsersService {
             if(retrievedLogin.equals(user.getLogin())) {
                 return ResponseEntity.badRequest().body(new UserResponse(400, "This user already exists."));
             }
+            return ResponseEntity.badRequest().body(new UserResponse(400, "Unexpected error."));
         }
         this.usersRepository.save(user);
         return ResponseEntity.ok(new UserResponse(200, "User has been added."));

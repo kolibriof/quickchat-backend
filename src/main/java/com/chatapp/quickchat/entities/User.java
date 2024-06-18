@@ -48,4 +48,8 @@ public class User {
     public Boolean getActive() {
         return active;
     }
+
+    public void setId(Integer id) {
+        this.Id = id;
+    }
 }
