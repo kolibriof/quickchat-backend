@@ -34,3 +34,8 @@ logging:
     org:
       hibernate: debug
     web: DEBUG
+
+security:
+  jwt:
+    token:
+      secret-key: 382932793232
