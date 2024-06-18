@@ -3,6 +3,7 @@ package com.chatapp.quickchat.controllers;
 import com.chatapp.quickchat.dto.UserDTO;
 import com.chatapp.quickchat.entities.User;
 import com.chatapp.quickchat.responses.UserResponse;
+import com.chatapp.quickchat.security.UserAuthProvider;
 import com.chatapp.quickchat.services.UsersService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<UserResponse> addOneUser(@Valid @RequestBody User user, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().body(new UserResponse(400, "User validation error."));
+            return ResponseEntity.badRequest().body(new UserResponse(400, "User validation error.", null));
         }
         return this.usersService.createNewUser(user);
     }

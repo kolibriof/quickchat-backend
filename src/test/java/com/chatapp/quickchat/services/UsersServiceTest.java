@@ -29,7 +29,7 @@ class UsersServiceTest {
     @Test
     void shouldReturn200_IfUserExists() {
         when(usersRepository.findByLoginAndPassword("login", "pass")).thenReturn(1);
-        UserResponse expected = new UserResponse(200, "login");
+        UserResponse expected = new UserResponse(200, "login", null);
 
         UserResponse result = usersService.authenticateUser("login", "pass");
 
@@ -38,7 +38,7 @@ class UsersServiceTest {
     @Test
     void shouldReturn200_IfUserDoesNotExists() {
         when(usersRepository.findByLoginAndPassword("login", "pass")).thenReturn(null);
-        UserResponse expected = new UserResponse(400, "Incorrect credentials.");
+        UserResponse expected = new UserResponse(400, "Incorrect credentials.", null);
 
         UserResponse result = usersService.authenticateUser("login", "pass");
 

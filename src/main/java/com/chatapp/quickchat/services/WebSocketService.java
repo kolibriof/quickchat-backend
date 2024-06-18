@@ -8,6 +8,7 @@ import com.chatapp.quickchat.responses.MessageResponse;
 import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class WebSocketService {

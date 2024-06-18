@@ -1,4 +1,11 @@
 spring:
+  security:
+    filter:
+      order: 10
+    user:
+      password: 12345
+    admin:
+      password: admin
   application:
     name: quickchat
   datasource:

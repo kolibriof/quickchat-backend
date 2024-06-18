@@ -65,7 +65,7 @@ class UserControllerTest {
     void shouldReturnOKResponse_IfCredentialsAreCorrect() throws Exception {
         User user = new User("dima", "dima", true);
         user.setId(1);
-        UserResponse userResponse = new UserResponse(400, "The user already exists");
+        UserResponse userResponse = new UserResponse(400, "The user already exists", null);
         String expected = new ObjectMapper().writeValueAsString(userResponse);
 
         when(usersServiceMock.createNewUser(any(User.class))).thenReturn(ResponseEntity.badRequest().body(userResponse));
@@ -84,7 +84,7 @@ class UserControllerTest {
     void shouldFailValidation_IfLoginIsNull() throws Exception {
         User user = new User("", "dima", true);
         user.setId(1);
-        UserResponse userResponse = new UserResponse(400, "User validation error.");
+        UserResponse userResponse = new UserResponse(400, "User validation error.", null);
         String expected = new ObjectMapper().writeValueAsString(userResponse);
         String payload = new ObjectMapper().writeValueAsString(user);
 
@@ -105,7 +105,7 @@ class UserControllerTest {
         User user = new User("dima", "dima", true);
         user.setId(1);
         String payload = new ObjectMapper().writeValueAsString(user);
-        UserResponse response = new UserResponse(200, user.getLogin());
+        UserResponse response = new UserResponse(200, user.getLogin(), null);
         String expected = new ObjectMapper().writeValueAsString(response);
         when(usersServiceMock.authenticateUser(user.getLogin(), user.getPassword())).thenReturn(response);
 
