@@ -21,6 +21,7 @@ public class SecurityConfig {
         this.userAuthProvider = userAuthProvider;
     }
 
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -28,10 +29,9 @@ public class SecurityConfig {
                 .addFilterBefore(new JwtAuthFilter(userAuthProvider), BasicAuthenticationFilter.class)
                 .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/login", "/greeting", "/ws/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .build();
     }
-
 }

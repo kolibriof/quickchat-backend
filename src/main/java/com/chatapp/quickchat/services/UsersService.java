@@ -7,14 +7,11 @@ import com.chatapp.quickchat.responses.UserResponse;
 import com.chatapp.quickchat.security.UserAuthProvider;
 import jakarta.transaction.Transactional;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UsersService implements UserDetailsService {
+public class UsersService {
 
     private final UserAuthProvider userAuthProvider;
     private final UsersRepository usersRepository;
@@ -50,14 +47,5 @@ public class UsersService implements UserDetailsService {
         this.usersRepository.save(user);
 
         return ResponseEntity.ok(new UserResponse(200, "User has been added.", this.userAuthProvider.createToken(user)));
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User result = usersRepository.findByLogin(username);
-        if(result != null) {
-            return (UserDetails) result;
-        }
-        throw new UsernameNotFoundException("User is not found.");
     }
 }
